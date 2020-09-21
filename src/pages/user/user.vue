@@ -8,17 +8,11 @@
 
 	export default {
 		data() {
-			return {
-				avatarUrl: "../../static/img/logo.png",
-				inviteUrl: ''
-			}
+			return {}
 		},
-		computed: {
-		},
+		computed: {},
 
-		methods: {
-
-		}
+		methods: {}
 	}
 </script>
 

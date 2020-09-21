@@ -51,13 +51,14 @@ export default {
 page {
   min-height: 100%;
   display: flex;
-  font-size: 14px;
+  font-size: 28rpx;
 }
 
 input,
 textarea,
 button {
-  font-size: 14px;
+  font-size: 28rpx;
+  outline: 0;
 }
 
 /* #ifdef MP-BAIDU */
@@ -75,6 +76,4 @@ page {
 }
 
 /* #endif */
-
-
 </style>
