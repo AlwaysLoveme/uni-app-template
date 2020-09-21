@@ -5,6 +5,7 @@ import store from './store'
 import uView from 'uview-ui'
 import VuePlugin from "@/utils/vue.plugin"
 import HttpInterceptor from '@/utils/http.interceptor'
+import '@/style/common.scss'
 Vue.config.productionTip = false
 
 Vue.prototype.$api = API

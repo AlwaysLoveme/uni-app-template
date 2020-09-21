@@ -45,8 +45,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import "~uview-ui/index.scss";
 /*每个页面公共css */
 page {
   min-height: 100%;
