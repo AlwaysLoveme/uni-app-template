@@ -1,152 +1,80 @@
 <script>
-	import {
-		mapState,
-		mapMutations
-	} from 'vuex'
+import {
+  mapState,
+  mapMutations
+} from 'vuex'
 
-	export default {
-		onLaunch: function() {
-			let uniIdToken = uni.getStorageSync('uniIdToken')
-			if (uniIdToken) {
-				this.login(uni.getStorageSync('username'))
-			}
-			console.log('App Launch');
-		},
-		onShow: function() {
-			console.log('App Show');
-		},
-		onHide: function() {
-			console.log('App Hide');
-		},
-		methods: {
-			...mapMutations(['login']),
-		}
-	}
+export default {
+  onLaunch: function () {
+    this.checkUpdate();
+  },
+  onShow: function () {
+  },
+  onHide: function () {
+  },
+  methods: {
+    checkUpdate() {
+      const updateManage = uni.getUpdateManager();
+      updateManage.onUpdateReady(function () {
+        uni.showModal({
+          title: '更新提示',
+          content: '新版本已经准备好，是否重启小程序以应用这些更新？',
+          success(res) {
+            if (res.confirm) {
+              // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+              updateManage.applyUpdate();
+            }
+          }
+        });
+      });
+      updateManage.onCheckForUpdate(function (res) {
+        // 请求完新版本信息的回调
+        console.log(res.hasUpdate);
+        uni.showToast({title: res.hasUpdate ? '有新版本啦，后台下载中' : '您的版本是最新的'})
+      });
+      updateManage.onUpdateFailed(function (res) {
+        // 新的版本下载失败
+        uni.showModal({
+          title: '更新失败',
+          showCancel: false,
+          content: '请确保网络通畅，或者尝试关闭微信重新启动',
+        });
+      });
+    }
+  }
+}
 </script>
 
 <style>
-	/* 头条小程序需要把 iconfont 样式放到组件外 */
-	@import "components/m-icon/m-icon.css";
 
-	/*每个页面公共css */
-	page {
-		min-height: 100%;
-		display: flex;
-		font-size: 14px;
-	}
+/*每个页面公共css */
+page {
+  min-height: 100%;
+  display: flex;
+  font-size: 14px;
+}
 
-	input,
-	textarea,
-	button {
-		font-size: 14px;
-	}
+input,
+textarea,
+button {
+  font-size: 14px;
+}
 
-	/* #ifdef MP-BAIDU */
-	page {
-		width: 100%;
-		height: 100%;
-		display: block;
-	}
+/* #ifdef MP-BAIDU */
+page {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 
-	swan-template {
-		width: 100%;
-		min-height: 100%;
-		display: flex;
-	}
+/* #endif */
 
-	/* 原生组件模式下需要注意组件外部样式 */
-	custom-component {
-		width: 100%;
-		min-height: 100%;
-		display: flex;
-	}
+/* #ifdef MP-ALIPAY */
+page {
+  min-height: 100vh;
+}
 
-	/* #endif */
+/* #endif */
 
-	/* #ifdef MP-ALIPAY */
-	page {
-		min-height: 100vh;
-	}
 
-	/* #endif */
-
-	/* 原生组件模式下需要注意组件外部样式 */
-	m-input {
-		width: 100%;
-		/* min-height: 100%; */
-		display: flex;
-		flex: 1;
-	}
-
-	.content {
-		display: flex;
-		flex: 1;
-		flex-direction: column;
-		background-color: #efeff4;
-		padding: 10px;
-	}
-
-	.input-group {
-		background-color: #ffffff;
-		margin-top: 20px;
-		position: relative;
-	}
-
-	.input-group::before {
-		position: absolute;
-		right: 0;
-		top: 0;
-		left: 0;
-		height: 1px;
-		content: '';
-		-webkit-transform: scaleY(.5);
-		transform: scaleY(.5);
-		background-color: #c8c7cc;
-	}
-
-	.input-group::after {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		height: 1px;
-		content: '';
-		-webkit-transform: scaleY(.5);
-		transform: scaleY(.5);
-		background-color: #c8c7cc;
-	}
-
-	.input-row {
-		display: flex;
-		flex-direction: row;
-		position: relative;
-		/* font-size: 18px; */
-		line-height: 40px;
-	}
-
-	.input-row .title {
-		width: 70px;
-		padding-left: 15px;
-	}
-
-	.input-row.border::after {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		left: 8px;
-		height: 1px;
-		content: '';
-		-webkit-transform: scaleY(.5);
-		transform: scaleY(.5);
-		background-color: #c8c7cc;
-	}
-
-	.btn-row {
-		margin-top: 25px;
-		padding: 10px;
-	}
-
-	button.primary {
-		background-color: #0faeff;
-	}
 </style>

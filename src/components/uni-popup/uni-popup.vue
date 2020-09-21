@@ -208,8 +208,6 @@
 	}
 </script>
 <style scoped>
-	@charset "UTF-8";
-
 	.uni-popup {
 		position: fixed;
 		/* #ifndef APP-NVUE */
