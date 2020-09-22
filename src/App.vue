@@ -1,16 +1,22 @@
 <script>
-import {
-  mapState,
-  mapMutations
-} from 'vuex'
-
 export default {
   onLaunch: function () {
     this.checkUpdate();
-  },
-  onShow: function () {
-  },
-  onHide: function () {
+    uni.getSystemInfo({
+      success(e) {
+        const barHeight = e.platform === 'ios' ? 44 : 48;
+        Vue.prototype.$barHeight = barHeight;
+        Vue.prototype.$statusBarHeight = e.statusBarHeight; // 状态栏高度
+        Vue.prototype.$navBarHeight = barHeight + e.statusBarHeight; // 当使用自定义导航栏时，内容区域需要撑下此高度
+        // IOS safe-area
+        Vue.prototype.$safeArea = {
+          bottom: e.screenHeight - e.safeArea.bottom,
+          top: e.safeArea.top,
+          left: e.safeArea.left,
+          height: e.screenHeight
+        }
+      }
+    })
   },
   methods: {
     checkUpdate() {
@@ -46,12 +52,17 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~uview-ui/index.scss";
+@import "~uview-ui/index";
+@import "./style/common";
 /*每个页面公共css */
 page {
   min-height: 100%;
   display: flex;
   font-size: 28rpx;
+}
+.u-page {
+  width: 100%;
+  min-height: 100vh;
 }
 
 input,
