@@ -10,10 +10,10 @@ export default {
         Vue.prototype.$navBarHeight = barHeight + e.statusBarHeight; // 当使用自定义导航栏时，内容区域需要撑下此高度
         // IOS safe-area
         Vue.prototype.$safeArea = {
-          bottom: e.screenHeight - e.safeArea.bottom,
           top: e.safeArea.top,
           left: e.safeArea.left,
-          height: e.screenHeight
+          height: e.screenHeight,
+          bottom: e.screenHeight - e.safeArea.bottom,
         }
       }
     })

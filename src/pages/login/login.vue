@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="u-page">
 
 	</view>
 </template>
@@ -33,5 +33,5 @@
 	}
 </script>
 
-<style>
+<style scoped lang="scss">
 </style>
